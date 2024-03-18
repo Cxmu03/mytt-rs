@@ -1,39 +1,28 @@
 mod error;
 mod pages;
+mod endpoints;
+mod models;
+
+use std::rc::Rc;
 
 use ureq::Agent;
 
-use error::Error;
-use pages::{Page, get_page};
-use crate::error::Error::AuthenticationError;
+use endpoints::*;
 
 pub struct MyTTApi {
-    agent: Agent
+    pub user: UserEndpoint,
+    pub player: PlayerEndpoint
 }
 
 impl MyTTApi {
     pub fn new() -> MyTTApi {
+        let agent = Rc::new(Agent::new());
+
         MyTTApi {
-            agent: Agent::new()
+            user: UserEndpoint { agent: Rc::clone(&agent) },
+            player: PlayerEndpoint { agent: Rc::clone(&agent) }
         }
     }
 
-    pub fn log_in(&self, username: &str, password: &str) -> Result<(), Error> {
-        let json = ureq::json!({
-                "userNameB": username,
-                "userPassWordB": password,
-                "permalogin": 1,
-                "targetPage": get_page(Page::LoginRedirectPage)
-            });
 
-        let response = self.agent.post(&get_page(Page::LoginPage))
-            .send_json(json)?;
-
-        // todo: Better detection mechanism for successful login
-        if response.status() != 302 {
-            return Err(AuthenticationError());
-        }
-
-        Ok(())
-    }
 }
