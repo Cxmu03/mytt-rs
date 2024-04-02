@@ -1,4 +1,4 @@
-use std::rc::Rc;
+use std::sync::Arc;
 
 use ureq::Agent;
 
@@ -7,7 +7,7 @@ use crate::error::Error::AuthenticationError;
 use crate::pages::Page;
 
 pub struct UserEndpoint {
-    pub agent: Rc<Agent>
+    pub agent: Arc<Agent>
 }
 
 impl UserEndpoint {

@@ -1,4 +1,4 @@
-use std::rc::Rc;
+use std::sync::Arc;
 
 use ureq::Agent;
 use ureq::serde_json::Value;
@@ -9,7 +9,7 @@ use crate::models::Player;
 use crate::pages::Page;
 
 pub struct PlayerEndpoint {
-    pub agent: Rc<Agent>
+    pub agent: Arc<Agent>
 }
 
 impl PlayerEndpoint {

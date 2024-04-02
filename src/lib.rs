@@ -3,7 +3,7 @@ mod pages;
 mod endpoints;
 mod models;
 
-use std::rc::Rc;
+use std::sync::Arc;
 
 use ureq::Agent;
 
@@ -16,11 +16,11 @@ pub struct MyTTApi {
 
 impl MyTTApi {
     pub fn new() -> MyTTApi {
-        let agent = Rc::new(Agent::new());
+        let agent = Arc::new(Agent::new());
 
         MyTTApi {
-            user: UserEndpoint { agent: Rc::clone(&agent) },
-            player: PlayerEndpoint { agent: Rc::clone(&agent) }
+            user: UserEndpoint { agent: Arc::clone(&agent) },
+            player: PlayerEndpoint { agent: Arc::clone(&agent) }
         }
     }
 
