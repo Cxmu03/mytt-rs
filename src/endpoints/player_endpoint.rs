@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use scraper::{Html, Selector};
 use scraper::node::Node::Text;
+use scraper::{Html, Selector};
 use ureq::serde_json::Value;
 use ureq::Agent;
 
@@ -80,7 +80,8 @@ impl PlayerEndpoint {
         }
 
         let qttr_string = qttr_node.as_text().unwrap().to_string();
-        let qttr = parse_ttr(&qttr_string).ok_or(ParsingError("Could not parse TTR from text".into()))?;
+        let qttr =
+            parse_ttr(&qttr_string).ok_or(ParsingError("Could not parse TTR from text".into()))?;
 
         let ttr_node = res_siblings.skip(3).next().unwrap().value();
 
