@@ -8,7 +8,10 @@ fn main() {
 
     mytt.user.log_in(&user, &password).unwrap();
 
-    let players = mytt.player.get_players_by_name("Marek", "Freunscht").unwrap().unwrap();
+    let players = mytt
+        .player
+        .get_players_by_name("Marek", "Freunscht")
+        .unwrap();
 
     dbg!(players);
 }

@@ -8,6 +8,8 @@ pub enum Error {
     ClientError(#[from] ureq::Error),
     #[error("Failed to validate data")]
     ValidationError(String),
+    #[error("Failed to parse data")]
+    ParsingError(String),
     #[error("IO Error")]
-    IOError(#[from] std::io::Error)
+    IOError(#[from] std::io::Error),
 }

@@ -1,7 +1,7 @@
-mod error;
-mod pages;
 mod endpoints;
+mod error;
 mod models;
+mod pages;
 
 use std::sync::Arc;
 
@@ -11,7 +11,7 @@ use endpoints::*;
 
 pub struct MyTTApi {
     pub user: UserEndpoint,
-    pub player: PlayerEndpoint
+    pub player: PlayerEndpoint,
 }
 
 impl MyTTApi {
@@ -19,10 +19,12 @@ impl MyTTApi {
         let agent = Arc::new(Agent::new());
 
         MyTTApi {
-            user: UserEndpoint { agent: Arc::clone(&agent) },
-            player: PlayerEndpoint { agent: Arc::clone(&agent) }
+            user: UserEndpoint {
+                agent: Arc::clone(&agent),
+            },
+            player: PlayerEndpoint {
+                agent: Arc::clone(&agent),
+            },
         }
     }
-
-
 }

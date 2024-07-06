@@ -7,23 +7,27 @@ use crate::error::Error::AuthenticationError;
 use crate::pages::Page;
 
 pub struct UserEndpoint {
-    pub agent: Arc<Agent>
+    pub agent: Arc<Agent>,
 }
 
 impl UserEndpoint {
     pub fn log_in(&self, username: &str, password: &str) -> Result<(), Error> {
         let json = ureq::json!({
-                "userNameB": username,
-                "userPassWordB": password,
-                "permalogin": 1,
-                "targetPage": String::from(Page::LoginRedirectPage)
-            });
+            "userNameB": username,
+            "userPassWordB": password,
+            "permalogin": 1,
+            "targetPage": String::from(Page::LoginRedirectPage)
+        });
 
-        let response = self.agent.post(&String::from(Page::LoginPage))
+        let response = self
+            .agent
+            .post(&String::from(Page::LoginPage))
             .send_json(json)?;
 
         if response.get_url() != &String::from(Page::LoginRedirectPage) {
-            return Err(AuthenticationError(String::from("Could not authenticate with the given credentials")));
+            return Err(AuthenticationError(String::from(
+                "Could not authenticate with the given credentials",
+            )));
         }
 
         Ok(())

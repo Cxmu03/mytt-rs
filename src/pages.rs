@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter, self};
+use std::fmt::{self, Display, Formatter};
 
 const BASE_PAGE: &str = "https://www.mytischtennis.de";
 
@@ -7,7 +7,8 @@ pub(crate) enum Page {
     LoginPage,
     LoginRedirectPage,
     PlayerSearchPage,
-    PlayerPopover
+    PlayerPopover,
+    TTRHistoryPage,
 }
 
 impl Display for Page {
@@ -16,7 +17,8 @@ impl Display for Page {
             Page::LoginPage => format!("{BASE_PAGE}/community/login"),
             Page::LoginRedirectPage => format!("{BASE_PAGE}/public/home?fromlogin=1&logout=true"),
             Page::PlayerSearchPage => format!("{BASE_PAGE}/clicktt/DTTB/player/search"),
-            Page::PlayerPopover => format!("{BASE_PAGE}/clicktt/DTTB/player/popover")
+            Page::PlayerPopover => format!("{BASE_PAGE}/clicktt/DTTB/player/popover"),
+            Page::TTRHistoryPage => format!("{BASE_PAGE}/community/events"),
         };
 
         write!(f, "{}", representation)
